@@ -53,7 +53,6 @@ class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         self.movieCheckBoxButton.imageView?.image = UIImage(systemName: "checkmark.square")
         self.tvShowCheckBoxButton.imageView?.image = UIImage(systemName: "square")
         self.isMovie = true
-        
     }
     @IBAction func tvShowCheckBoxButtonTapped(_ sender: UIButton) {
         self.movieCheckBoxButton.imageView?.image = UIImage(systemName: "square")
