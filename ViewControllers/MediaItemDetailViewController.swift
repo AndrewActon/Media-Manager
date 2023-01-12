@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol DeleteItemDelegate: AnyObject {
+    func deleteItem(mediaItem: MediaItem)
+}
+
 class MediaItemDetailViewController: UIViewController {
 
     //MARK: Outlets
@@ -21,14 +25,58 @@ class MediaItemDetailViewController: UIViewController {
     
     //MARK: Properties
     var mediaItem: MediaItem?
+    weak var delegate: (DeleteItemDelegate)?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setupViews()
     }
     
+    //MARK: Actions
+    @IBAction func isFavoriteButtonTapped(_ sender: UIButton) {
+        guard let item = mediaItem else { return }
+        if item.isFavorite {
+            mediaItem?.isFavorite = false
+        } else {
+            mediaItem?.isFavorite = true
+        }
+        
+        MediaItemController.shared.updateMediaItem()
+        
+        if mediaItem?.isFavorite == true {
+            isFavoriteButton.setTitle("Remove From Favorites", for: .normal)
+        } else {
+            isFavoriteButton.setTitle("Add To Favorites", for: .normal)
+        }
+    }
+    
+    @IBAction func isWatchedButtonTapped(_ sender: UIButton) {
+        guard let item = mediaItem else { return }
+        if item.wasWatched {
+            mediaItem?.wasWatched = false
+        } else {
+            mediaItem?.wasWatched = true
+        }
+        
+        MediaItemController.shared.updateMediaItem()
+        
+        if mediaItem?.wasWatched == true {
+            isWatchedButton.setTitle("Mark As Unwatched", for: .normal)
+        } else {
+            isWatchedButton.setTitle("Mark As Watched", for: .normal)
+        }
+    }
+    
+    @IBAction func deleteButtonTapped(_ sender: Any) {
+        guard let item = mediaItem else { return }
+        MediaItemController.shared.deleteMediaItem(mediaItem: item)
+        delegate?.deleteItem(mediaItem: item)
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    
+    //MARK: Helper Functions
     func setupViews() {
         guard let item = mediaItem else { return }
         

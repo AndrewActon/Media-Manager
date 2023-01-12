@@ -137,18 +137,24 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="63" translatesAutoresizingMaskIntoConstraints="NO" id="pEZ-vi-hg5">
-                                <rect key="frame" x="73" y="317" width="247" height="34.333333333333314"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="pEZ-vi-hg5">
+                                <rect key="frame" x="98.333333333333329" y="317" width="196.33333333333337" height="34.333333333333314"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yYb-N0-Xqe">
-                                        <rect key="frame" x="0.0" y="0.0" width="92" height="34.333333333333336"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="84.333333333333329" height="34.333333333333336"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Favorite"/>
+                                        <connections>
+                                            <action selector="isFavoriteButtonTapped:" destination="fpE-m8-4x2" eventType="touchUpInside" id="dzw-Pt-hV7"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ryW-Oy-tS1">
-                                        <rect key="frame" x="155" y="0.0" width="92" height="34.333333333333336"/>
+                                        <rect key="frame" x="104.33333333333331" y="0.0" width="92" height="34.333333333333336"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Watched"/>
+                                        <connections>
+                                            <action selector="isWatchedButtonTapped:" destination="fpE-m8-4x2" eventType="touchUpInside" id="8Ma-La-JUF"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -156,6 +162,9 @@
                                 <rect key="frame" x="160" y="791.66666666666663" width="73.333333333333314" height="34.333333333333371"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Delete"/>
+                                <connections>
+                                    <action selector="deleteButtonTapped:" destination="fpE-m8-4x2" eventType="touchUpInside" id="Ctr-lx-pyR"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="daZ-0H-10F">
                                 <rect key="frame" x="148.33333333333334" y="383.33333333333331" width="96.666666666666657" height="34.333333333333314"/>

@@ -43,8 +43,17 @@ class MediaItemTableViewController: UITableViewController {
             let destination = segue.destination as! MediaItemDetailViewController
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
             destination.mediaItem = mediaItems[indexPath.row]
+            destination.delegate = self
         }
     }
  
 
+}
+
+extension MediaItemTableViewController: DeleteItemDelegate {
+    func deleteItem(mediaItem: MediaItem) {
+        guard let index = mediaItems.firstIndex(of: mediaItem) else { return }
+        mediaItems.remove(at: index)
+        tableView.reloadData()
+    }
 }

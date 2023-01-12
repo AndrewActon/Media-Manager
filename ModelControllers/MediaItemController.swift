@@ -69,8 +69,16 @@ class MediaItemController {
     }
     
     //Update
+    func updateMediaItem() {
+        CoreDataStack.saveContext()
+        fetchMediaItems()
+    }
     
     //Delete
-    
+    func deleteMediaItem(mediaItem: MediaItem) {
+        CoreDataStack.context.delete(mediaItem)
+        CoreDataStack.saveContext()
+        fetchMediaItems()
+    }
     
 }
