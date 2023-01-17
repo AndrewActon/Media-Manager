@@ -27,12 +27,40 @@ class MediaItemDetailViewController: UIViewController {
     var mediaItem: MediaItem?
     weak var delegate: (DeleteItemDelegate)?
     
-    
+    //MARK: Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
     }
     
+    func setupViews() {
+        guard let item = mediaItem else { return }
+        
+        self.mediaTitle.text = item.title
+        self.mediaRating.text = String(item.rating)
+        self.releaseYear.text = "Released in \(item.year)"
+        self.mediaTextDescription.text = item.itemDescription
+        mediaTextDescription.isEditable = false
+        
+        if item.mediaType == "Movie" {
+            self.deleteButton.setTitle("Delete Movie", for: .normal)
+        } else {
+            self.deleteButton.setTitle("Delete TV Show", for: .normal)
+        }
+        
+        if item.isFavorite {
+            self.isFavoriteButton.setTitle("Remove From Favorites", for: .normal)
+        } else {
+            self.isFavoriteButton.setTitle("Add To Favorites", for: .normal)
+        }
+        
+        if item.wasWatched {
+            self.isWatchedButton.setTitle("Mark As Unwatched", for: .normal)
+        } else {
+            self.isWatchedButton.setTitle("Mark As Watched", for: .normal)
+        }
+    }
+
     //MARK: Actions
     @IBAction func isFavoriteButtonTapped(_ sender: UIButton) {
         guard let item = mediaItem else { return }
@@ -74,35 +102,27 @@ class MediaItemDetailViewController: UIViewController {
         delegate?.deleteItem(mediaItem: item)
         self.navigationController?.popViewController(animated: true)
     }
-    
-    
-    //MARK: Helper Functions
-    func setupViews() {
-        guard let item = mediaItem else { return }
-        
-        self.mediaTitle.text = item.title
-        self.mediaRating.text = String(item.rating)
-        self.releaseYear.text = "Released in \(item.year)"
-        self.mediaTextDescription.text = item.itemDescription
-        mediaTextDescription.isEditable = false
-        
-        if item.mediaType == "Movie" {
-            self.deleteButton.setTitle("Delete Movie", for: .normal)
-        } else {
-            self.deleteButton.setTitle("Delete TV Show", for: .normal)
-        }
-        
-        if item.isFavorite {
-            self.isFavoriteButton.setTitle("Remove From Favorites", for: .normal)
-        } else {
-            self.isFavoriteButton.setTitle("Add To Favorites", for: .normal)
-        }
-        
-        if item.wasWatched {
-            self.isWatchedButton.setTitle("Mark As Unwatched", for: .normal)
-        } else {
-            self.isWatchedButton.setTitle("Mark As Watched", for: .normal)
+
+    //MARK: Segues
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toEditItemVC" {
+            let destination = segue.destination as! EditItemViewController
+            destination.mediaItem = mediaItem
+            destination.delegate = self
         }
     }
 
+}
+
+extension MediaItemDetailViewController: EditDetailDelegate {
+    func mediaItemEdited(title: String, rating: Double, year: Int, description: String) {
+        guard let mediaItem = self.mediaItem else { return }
+        mediaItem.title = title
+        mediaItem.rating = rating
+        mediaItem.year = Int64(year)
+        mediaItem.itemDescription = description
+        
+        MediaItemController.shared.updateMediaItem()
+        setupViews()
+    }
 }
