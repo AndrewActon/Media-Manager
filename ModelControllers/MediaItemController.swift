@@ -18,6 +18,7 @@ class MediaItemController {
     var movies: [MediaItem] = []
     var tvShows: [MediaItem] = []
     var sections: [[MediaItem]]{[favorites, movies, tvShows]}
+    let notificationScheduler = NotificationScheduler()
     
     private init() {
         fetchMediaItems()
@@ -29,7 +30,7 @@ class MediaItemController {
         return request
     }()
     
-    //MARK: Helper Functions
+    //MARK: Methods
     
     func sectionOffMediaItems() {
         for i in mediaItems {
@@ -72,6 +73,11 @@ class MediaItemController {
     func updateMediaItem() {
         CoreDataStack.saveContext()
         fetchMediaItems()
+    }
+    
+    func updateMediaItemReminderDate(mediaItem: MediaItem) {
+        notificationScheduler.scheduleNotifications(mediaItem: mediaItem)
+        CoreDataStack.saveContext()
     }
     
     //Delete

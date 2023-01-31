@@ -103,12 +103,16 @@ class MediaItemDetailViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
 
-    //MARK: Segues
+    //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toEditItemVC" {
             let destination = segue.destination as! EditItemViewController
             destination.mediaItem = mediaItem
             destination.delegate = self
+        } else if segue.identifier == "toReminderView" {
+            let destination = segue.destination as! DatePickerViewController
+            destination.delegate = self
+            destination.date = mediaItem?.reminderDate
         }
     }
 
@@ -124,5 +128,14 @@ extension MediaItemDetailViewController: EditDetailDelegate {
         
         MediaItemController.shared.updateMediaItem()
         setupViews()
+    }
+}
+
+extension MediaItemDetailViewController: DatePickerViewControllerDelegate {
+    func reminderDateEdited(date: Date) {
+        guard let mediaItem = mediaItem else { return }
+        mediaItem.reminderDate = date
+        reminderButton.setTitle("Edit Watch Reminder", for: .normal)
+        MediaItemController.shared.updateMediaItemReminderDate(mediaItem: mediaItem)
     }
 }

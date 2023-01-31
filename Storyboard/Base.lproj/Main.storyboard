@@ -170,6 +170,9 @@
                                 <rect key="frame" x="148.33333333333334" y="383.33333333333331" width="96.666666666666657" height="34.333333333333314"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Reminder"/>
+                                <connections>
+                                    <segue destination="KDY-f2-uCF" kind="show" identifier="toReminderView" id="RVs-gv-Mjs"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hLl-t3-q8I"/>
@@ -213,7 +216,46 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="urJ-Na-pEc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1368.7022900763359" y="734.50704225352115"/>
+            <point key="canvasLocation" x="497" y="1452"/>
+        </scene>
+        <!--Date Picker View Controller-->
+        <scene sceneID="XjW-47-Xxa">
+            <objects>
+                <viewController id="KDY-f2-uCF" customClass="DatePickerViewController" customModule="MediaManager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aF4-19-lnb">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="iXC-Vn-nJc">
+                                <rect key="frame" x="0.0" y="443.33333333333331" width="393" height="34.333333333333314"/>
+                                <connections>
+                                    <action selector="datePickerTapped:" destination="KDY-f2-uCF" eventType="valueChanged" id="7mT-gO-ujv"/>
+                                </connections>
+                            </datePicker>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="XS6-wu-0GL"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="iXC-Vn-nJc" secondAttribute="trailing" id="0CT-ZY-ZhH"/>
+                            <constraint firstItem="iXC-Vn-nJc" firstAttribute="centerY" secondItem="XS6-wu-0GL" secondAttribute="centerY" id="9qL-mW-KM9"/>
+                            <constraint firstItem="iXC-Vn-nJc" firstAttribute="leading" secondItem="XS6-wu-0GL" secondAttribute="leading" id="Ib9-Ks-Xch"/>
+                            <constraint firstItem="iXC-Vn-nJc" firstAttribute="centerX" secondItem="XS6-wu-0GL" secondAttribute="centerX" id="wy1-wr-JG2"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="uQ9-N2-oF1">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="jCo-Uq-geU">
+                            <connections>
+                                <action selector="saveButtonTapped:" destination="KDY-f2-uCF" id="3Sq-8g-rug"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="datePicker" destination="iXC-Vn-nJc" id="bZb-HZ-VHg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3OY-Wh-Xr6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1313.7404580152672" y="1787.323943661972"/>
         </scene>
         <!--Edit Item View Controller-->
         <scene sceneID="KjP-sR-zjZ">
@@ -227,13 +269,13 @@
                                 <rect key="frame" x="16" y="169" width="361" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating: 10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNb-LO-Ziz">
-                                        <rect key="frame" x="0.0" y="0.0" width="43.333333333333336" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="39.333333333333336" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="59o-I6-vEB">
-                                        <rect key="frame" x="88.333333333333343" y="0.0" width="274.66666666666663" height="31"/>
+                                        <rect key="frame" x="84.333333333333343" y="0.0" width="278.66666666666663" height="31"/>
                                         <connections>
                                             <action selector="ratingSliderTapped:" destination="vki-8a-qNS" eventType="valueChanged" id="xfd-yd-u1m"/>
                                         </connections>
@@ -324,7 +366,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FnM-tT-wIw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2081.679389312977" y="734.50704225352115"/>
+            <point key="canvasLocation" x="1327" y="1144"/>
         </scene>
         <!--Add Item View Controller-->
         <scene sceneID="Bn2-bA-B4C">

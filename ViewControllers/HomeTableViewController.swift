@@ -13,6 +13,7 @@ class HomeTableViewController: UITableViewController {
     //MARK: Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(reminderFired), name: Notification.Name(rawValue: "mediaReminderNotification"), object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -22,6 +23,18 @@ class HomeTableViewController: UITableViewController {
         }
     }
 
+    //MARK: Methods
+    @objc func reminderFired() {
+        DispatchQueue.main.async {
+            self.tableView.backgroundColor = .red
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.tableView.backgroundColor = .systemBackground
+            self.view.backgroundColor = .systemBackground
+        }
+    }
+    
+    //MARK: Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toMediaItemVC" {
             guard let indexPath = tableView.indexPathForSelectedRow else { return }

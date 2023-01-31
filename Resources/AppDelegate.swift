@@ -7,15 +7,32 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { authorized, error in
+            if let error = error {
+                print("There was an error requesting permission to show local notifications; \(error)")
+            }
+            
+            if authorized {
+                UNUserNotificationCenter.current().delegate = self
+                print("User granted authorization to show local notifications")
+            } else {
+                print("User denied authorization to show local notifications")
+            }
+        }
         return true
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        NotificationCenter.default.post(name: Notification.Name("mediaReminderNotification"), object: nil)
+        completionHandler([.sound, .banner])
     }
 
     // MARK: UISceneSession Lifecycle
